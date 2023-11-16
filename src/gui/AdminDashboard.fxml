@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminDashboardController">
+   <children>
+      <AnchorPane fx:id="adminDashboardHomePane" layoutX="6.0" layoutY="89.0" prefHeight="763.0" prefWidth="1208.0">
+         <children>
+            <Label layoutX="434.0" layoutY="279.0" text="Welcome To Course Management System">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff21217d" height="87.0" stroke="WHITE" strokeType="INSIDE" width="1200.0" />
+      <Circle fill="#87ff16" layoutX="42.0" layoutY="44.0" radius="6.0" stroke="BLACK" strokeWidth="0.0" />
+      <Rectangle fill="#ffdb6f" height="4.0" layoutY="85.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1200.0" />
+      <Button layoutX="54.0" layoutY="26.0" mnemonicParsing="false" onAction="#navigateToAdminDashboard" stylesheets="@../styles/navigation_button.css" text="Admin Dashboard" textFill="#0a0000">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <AnchorPane fx:id="adminRegistrationPane" layoutY="87.0" prefHeight="763.0" prefWidth="1200.0">
+         <children>
+            <Label layoutX="22.0" layoutY="66.0" text="Offered Courses">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <TableView fx:id="registrationTableView" layoutX="22.0" layoutY="106.0" prefHeight="200.0" prefWidth="512.0" />
+            <Label layoutX="610.0" layoutY="66.0" text="Registered Courses">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Button layoutX="364.0" layoutY="325.0" mnemonicParsing="false" onAction="#handleCourseRegistration" prefHeight="30.0" prefWidth="170.0" stylesheets="@../styles/navigation_button.css" text="Register" textFill="#0a0000" />
+            <Label fx:id="registrationStatusLabel" layoutX="22.0" layoutY="332.0" text="Registration Status For Selected Course" />
+            <Button layoutX="992.0" layoutY="325.0" mnemonicParsing="false" onAction="#handleCourseRemoval" prefHeight="30.0" prefWidth="170.0" stylesheets="@../styles/navigation_button.css" text="Remove" />
+            <TableView fx:id="registeredCoursesTableView" layoutX="610.0" layoutY="106.0" prefHeight="200.0" prefWidth="552.0" />
+            <Label fx:id="removeCourseStatusLabel" alignment="TOP_LEFT" layoutX="648.0" layoutY="329.0" prefHeight="40.0" prefWidth="305.0" text="Status for removed course" wrapText="true" />
+            <VBox layoutX="278.0" layoutY="472.0" prefHeight="169.0" prefWidth="690.0" spacing="4.0">
+               <children>
+                  <Label text="Notes:">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" prefHeight="25.0" prefWidth="696.0" text="1. Select a row from &quot;Offered Courses&quot; table and hit &quot;Register&quot; button to register for that course (one at a time).">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" prefHeight="25.0" prefWidth="512.0" text="2. Courses you successfully registered will show on the &quot;Registered Courses&quot; table.">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" prefHeight="25.0" prefWidth="512.0" text="3. Courses you successfully registered will show on the &quot;Registered Courses&quot; table.">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <Label layoutX="22.0" layoutY="14.0" prefHeight="35.0" prefWidth="136.0" text="Choose a student">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="pickupStudentComboBox" layoutX="158.0" layoutY="17.0" onAction="#pickupStudentComboBoxAction" prefHeight="30.0" prefWidth="160.0" />
+         </children>
+      </AnchorPane>
+      <HBox layoutX="638.0" layoutY="33.0" prefHeight="35.0" prefWidth="538.0" spacing="10.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#navigateToRegistration" prefHeight="30.0" prefWidth="135.0" stylesheets="@../styles/navigation_button.css" text="Registration" textFill="#0d0000">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#navigateToReport" prefHeight="30.0" prefWidth="102.0" stylesheets="@../styles/navigation_button.css" text="Report" textFill="#0a0000">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button id="button" mnemonicParsing="false" onAction="#navigateToMangementCourse" stylesheets="@../styles/navigation_button.css" text="Course Management" textFill="#0d0000">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button layoutX="358.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleDashboardSignout" prefHeight="30.0" prefWidth="102.0" stylesheets="@../styles/navigation_button.css" text="Sign Out" textFill="#0d0000">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <AnchorPane fx:id="adminCourseManagementPage" layoutY="87.0" prefHeight="763.0" prefWidth="1200.0">
+         <children>
+            <TabPane prefHeight="763.0" prefWidth="1200.0" tabClosingPolicy="UNAVAILABLE">
+               <tabs>
+                  <Tab text="Create a new course">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <GridPane layoutX="268.0" layoutY="125.0" prefHeight="357.0" prefWidth="601.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="209.0" minWidth="10.0" prefWidth="166.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="423.0" minWidth="10.0" prefWidth="423.0" />
+                                    <ColumnConstraints maxWidth="0.0" minWidth="0.0" prefWidth="0.0" />
+                                    <ColumnConstraints maxWidth="0.0" minWidth="0.0" prefWidth="0.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label alignment="CENTER" prefHeight="17.0" prefWidth="112.0" text="Id">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="45.0" right="10.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <Label alignment="CENTER" layoutX="10.0" layoutY="24.0" prefHeight="17.0" prefWidth="112.0" text="Name" GridPane.rowIndex="1">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="45.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <Label alignment="CENTER" layoutX="10.0" layoutY="24.0" prefHeight="17.0" prefWidth="112.0" text="Credit" GridPane.rowIndex="2">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="45.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <Label alignment="CENTER" layoutX="10.0" layoutY="24.0" prefHeight="17.0" prefWidth="112.0" text="Max student" GridPane.rowIndex="3">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="45.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <Label alignment="CENTER" layoutX="10.0" layoutY="24.0" prefHeight="25.0" prefWidth="120.0" text="Current student" GridPane.rowIndex="4">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="45.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <Label alignment="CENTER" layoutX="10.0" layoutY="24.0" prefHeight="17.0" prefWidth="112.0" text="Teacher id" GridPane.rowIndex="5">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="45.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <TextField fx:id="createcourseIdField" alignment="CENTER" prefHeight="25.0" prefWidth="342.0" GridPane.columnIndex="1" GridPane.columnSpan="2">
+                                       <GridPane.margin>
+                                          <Insets left="40.0" right="40.0" />
+                                       </GridPane.margin>
+                                    </TextField>
+                                    <TextField fx:id="createcourseNameField" alignment="CENTER" layoutX="216.0" layoutY="22.0" prefHeight="25.0" prefWidth="367.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                       <GridPane.margin>
+                                          <Insets left="40.0" right="40.0" />
+                                       </GridPane.margin>
+                                    </TextField>
+                                    <TextField fx:id="createcourseCreditField" alignment="CENTER" layoutX="216.0" layoutY="22.0" prefHeight="25.0" prefWidth="367.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                       <GridPane.margin>
+                                          <Insets left="40.0" right="40.0" />
+                                       </GridPane.margin>
+                                    </TextField>
+                                    <TextField fx:id="createcourseMaxStudentField" alignment="CENTER" layoutX="216.0" layoutY="22.0" prefHeight="25.0" prefWidth="367.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                       <GridPane.margin>
+                                          <Insets left="40.0" right="40.0" />
+                                       </GridPane.margin>
+                                    </TextField>
+                                    <TextField fx:id="createcourseCurrentStudentField" alignment="CENTER" layoutX="216.0" layoutY="22.0" prefHeight="25.0" prefWidth="367.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                       <GridPane.margin>
+                                          <Insets left="40.0" right="40.0" />
+                                       </GridPane.margin>
+                                    </TextField>
+                                    <ComboBox fx:id="createcourseTeacherIdComboBox" prefHeight="25.0" prefWidth="341.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                       <GridPane.margin>
+                                          <Insets left="40.0" right="40.0" />
+                                       </GridPane.margin>
+                                    </ComboBox>
+                                    <Button alignment="CENTER_RIGHT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#handleCreateCourseButton" stylesheets="@../styles/navigation_button.css" text="Create" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                       <GridPane.margin>
+                                          <Insets left="100.0" right="50.0" />
+                                       </GridPane.margin>
+                                    </Button>
+                                    <Button alignment="CENTER_RIGHT" layoutX="238.0" layoutY="327.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#handleCreateCourseResetButton" stylesheets="@../styles/navigation_button.css" text="Reset" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                       <GridPane.margin>
+                                          <Insets left="250.0" />
+                                       </GridPane.margin>
+                                    </Button>
+                                    <Label fx:id="myCreatLabel" alignment="CENTER" prefHeight="25.0" prefWidth="341.0" text="Label" GridPane.rowIndex="6">
+                                       <padding>
+                                          <Insets left="20.0" />
+                                       </padding>
+                                    </Label>
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Update a course">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ComboBox fx:id="updateCourseComboBox" layoutX="549.0" layoutY="44.0" onAction="#pickupupdateCourseComboBoxAction" prefHeight="30.0" prefWidth="160.0" />
+                              <Label layoutX="401.0" layoutY="46.0" prefHeight="25.0" prefWidth="142.0" text="Choose a course">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <GridPane layoutX="268.0" layoutY="125.0" prefHeight="357.0" prefWidth="601.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="209.0" minWidth="10.0" prefWidth="166.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="423.0" minWidth="10.0" prefWidth="423.0" />
+                                    <ColumnConstraints maxWidth="0.0" minWidth="0.0" prefWidth="0.0" />
+                                    <ColumnConstraints maxWidth="0.0" minWidth="0.0" prefWidth="0.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label alignment="CENTER" prefHeight="17.0" prefWidth="112.0" text="Id">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="45.0" right="10.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <Label alignment="CENTER" layoutX="10.0" layoutY="24.0" prefHeight="17.0" prefWidth="112.0" text="Name" GridPane.rowIndex="1">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="45.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <Label alignment="CENTER" layoutX="10.0" layoutY="24.0" prefHeight="17.0" prefWidth="112.0" text="Credit" GridPane.rowIndex="2">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="45.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <Label alignment="CENTER" layoutX="10.0" layoutY="24.0" prefHeight="17.0" prefWidth="112.0" text="Max student" GridPane.rowIndex="3">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="45.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <Label alignment="CENTER" layoutX="10.0" layoutY="24.0" prefHeight="25.0" prefWidth="120.0" text="Current student" GridPane.rowIndex="4">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="45.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <Label alignment="CENTER" layoutX="10.0" layoutY="24.0" prefHeight="17.0" prefWidth="112.0" text="Teacher id" GridPane.rowIndex="5">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="45.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <TextField fx:id="updateCourseCreditField" alignment="CENTER" layoutX="216.0" layoutY="22.0" prefHeight="25.0" prefWidth="367.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                       <GridPane.margin>
+                                          <Insets left="40.0" right="40.0" />
+                                       </GridPane.margin>
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </TextField>
+                                    <TextField fx:id="updateCourseMaxStudentField" alignment="CENTER" layoutX="216.0" layoutY="22.0" prefHeight="25.0" prefWidth="367.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                       <GridPane.margin>
+                                          <Insets left="40.0" right="40.0" />
+                                       </GridPane.margin>
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </TextField>
+                                    <Button alignment="CENTER_RIGHT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#handleUpdateCourseButton" stylesheets="@../styles/navigation_button.css" text="Update" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                       <GridPane.margin>
+                                          <Insets left="100.0" right="50.0" />
+                                       </GridPane.margin>
+                                    </Button>
+                                    <Button alignment="CENTER_RIGHT" layoutX="238.0" layoutY="327.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#handleUpdateCourseResetButton" stylesheets="@../styles/navigation_button.css" text="Reset" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                       <GridPane.margin>
+                                          <Insets left="250.0" />
+                                       </GridPane.margin>
+                                    </Button>
+                                    <Label fx:id="myCreatLabel1" alignment="CENTER" prefHeight="17.0" prefWidth="160.0" text="Label" GridPane.rowIndex="6">
+                                       <padding>
+                                          <Insets left="20.0" />
+                                       </padding>
+                                    </Label>
+                                    <Label fx:id="updateCourseIdLabel" alignment="CENTER" prefHeight="17.0" prefWidth="383.0" text="Label" GridPane.columnIndex="1">
+                                       <padding>
+                                          <Insets left="40.0" right="40.0" />
+                                       </padding>
+                                       <GridPane.margin>
+                                          <Insets left="40.0" right="40.0" />
+                                       </GridPane.margin>
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="updateCourseNameLabel" alignment="CENTER" prefHeight="17.0" prefWidth="363.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                       <padding>
+                                          <Insets left="40.0" right="40.0" />
+                                       </padding>
+                                       <GridPane.margin>
+                                          <Insets left="40.0" right="40.0" />
+                                       </GridPane.margin>
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="updateCourseTeacherIdLabel" alignment="CENTER" layoutX="228.0" layoutY="74.0" prefHeight="17.0" prefWidth="363.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                       <padding>
+                                          <Insets left="40.0" right="40.0" />
+                                       </padding>
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="40.0" right="40.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <Label fx:id="updateCourseCurrentStudentLabel" alignment="CENTER" prefHeight="17.0" prefWidth="363.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                       <padding>
+                                          <Insets left="40.0" right="40.0" />
+                                       </padding>
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="40.0" right="40.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                 </children>
+                              </GridPane>
+                              <ComboBox fx:id="updateCourseTeacherIdComboBox" layoutX="853.0" layoutY="386.0" onAction="#pickupupdateCourseTeacherIdComboBox" prefHeight="40.0" prefWidth="148.0" />
+                              <VBox layoutX="268.0" layoutY="506.0" prefHeight="169.0" prefWidth="690.0" spacing="4.0">
+                                 <children>
+                                    <Label text="Notes:">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="TOP_LEFT" prefHeight="25.0" prefWidth="696.0" text="1. You can only change credit , max student , teacher id of any course .">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="TOP_LEFT" prefHeight="25.0" prefWidth="623.0" text="2. Pick the teacher id con the combobox next to teacher id label to change teacher id .">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                           </children></AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Courses Info">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Label alignment="CENTER" layoutX="516.0" layoutY="63.0" prefHeight="30.0" prefWidth="130.0" text="Course List">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <TableView fx:id="createCourseTableView" layoutX="203.0" layoutY="120.0" prefHeight="320.0" prefWidth="835.0" />
+                              <Label fx:id="myRemoveLabel" alignment="TOP_LEFT" layoutX="303.0" layoutY="477.0" prefHeight="40.0" prefWidth="305.0" text="Status for removed course" wrapText="true" />
+                              <Button layoutX="747.0" layoutY="467.0" mnemonicParsing="false" onAction="#handleCourseRemove" prefHeight="30.0" prefWidth="170.0" stylesheets="@../styles/navigation_button.css" text="Remove" />
+                           </children></AnchorPane>
+                     </content>
+                  </Tab>
+               </tabs>
+            </TabPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="adminReportPane" layoutY="87.0" prefHeight="763.0" prefWidth="1200.0">
+         <children>
+            <TabPane layoutX="-2.0" prefHeight="763.0" prefWidth="1208.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="View courses">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Label layoutX="61.0" layoutY="63.0" text="All Courses">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <TableView fx:id="adminReportTableView" layoutX="61.0" layoutY="99.0" prefHeight="298.0" prefWidth="512.0" />
+                              <Label layoutX="645.0" layoutY="63.0" prefHeight="25.0" prefWidth="108.0" text="Courses full">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <TableView fx:id="adminReportFullTableView" layoutX="645.0" layoutY="99.0" prefHeight="297.0" prefWidth="512.0" />
+                              <VBox layoutX="228.0" layoutY="513.0" prefHeight="169.0" prefWidth="690.0" spacing="4.0">
+                                 <children>
+                                    <Label text="Notes:">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="TOP_LEFT" prefHeight="25.0" prefWidth="696.0" text=" You can sort everycolumns buy click on the triangle in the column name . ">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="View Student registed in course">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Label layoutX="354.0" layoutY="64.0" text="Select Course ">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="reportViewRegistedStudentComboBox" layoutX="477.0" layoutY="59.0" onAction="#pickupCourseComboBoxAction" prefHeight="35.0" prefWidth="160.0" />
+                              <TableView fx:id="adminReportStudentRegistedView" layoutX="237.0" layoutY="149.0" prefHeight="291.0" prefWidth="641.0" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
