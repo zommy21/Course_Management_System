@@ -87,9 +87,9 @@
             <ComboBox fx:id="pickupStudentComboBox" layoutX="158.0" layoutY="17.0" onAction="#pickupStudentComboBoxAction" prefHeight="30.0" prefWidth="160.0" />
          </children>
       </AnchorPane>
-      <HBox layoutX="638.0" layoutY="33.0" prefHeight="35.0" prefWidth="538.0" spacing="10.0">
+      <HBox layoutX="492.0" layoutY="33.0" prefHeight="35.0" prefWidth="684.0" spacing="10.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#navigateToRegistration" prefHeight="30.0" prefWidth="135.0" stylesheets="@../styles/navigation_button.css" text="Registration" textFill="#0d0000">
+            <Button mnemonicParsing="false" onAction="#navigateToRegistration" prefHeight="30.0" prefWidth="159.0" stylesheets="@../styles/navigation_button.css" text="Registration" textFill="#0d0000">
                <font>
                   <Font size="14.0" />
                </font>
@@ -105,6 +105,11 @@
                </font>
             </Button>
             <Button layoutX="358.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleDashboardSignout" prefHeight="30.0" prefWidth="102.0" stylesheets="@../styles/navigation_button.css" text="Sign Out" textFill="#0d0000">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleDashboardReload" prefHeight="30.0" prefWidth="135.0" stylesheets="@../styles/navigation_button.css" text="Reload" textFill="#0d0000">
                <font>
                   <Font size="14.0" />
                </font>
@@ -477,7 +482,7 @@
                                  </font>
                               </Label>
                               <TableView fx:id="createCourseTableView" layoutX="203.0" layoutY="120.0" prefHeight="320.0" prefWidth="835.0" />
-                              <Label fx:id="myRemoveLabel" alignment="TOP_LEFT" layoutX="303.0" layoutY="477.0" prefHeight="40.0" prefWidth="305.0" text="Status for removed course" wrapText="true" />
+                              <Label fx:id="myRemoveLabel" alignment="TOP_LEFT" layoutX="464.0" layoutY="522.0" prefHeight="40.0" prefWidth="305.0" text="Status for removed course" wrapText="true" />
                               <Button layoutX="747.0" layoutY="467.0" mnemonicParsing="false" onAction="#handleCourseRemove" prefHeight="30.0" prefWidth="170.0" stylesheets="@../styles/navigation_button.css" text="Remove" />
                               <Button layoutX="379.0" layoutY="467.0" mnemonicParsing="false" onAction="#handleCourseReload" prefHeight="30.0" prefWidth="170.0" stylesheets="@../styles/navigation_button.css" text="Reload" />
                            </children></AnchorPane>

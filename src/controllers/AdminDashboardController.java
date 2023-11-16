@@ -22,6 +22,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -46,7 +48,7 @@ public class AdminDashboardController implements Initializable {
      */
 
     private int courseId;
-    
+
     @FXML
     private AnchorPane adminCourseManagementPage;
 
@@ -73,13 +75,13 @@ public class AdminDashboardController implements Initializable {
      */
     private Course course;
 
-    @FXML 
-    private ComboBox<String> updateCourseComboBox; 
+    @FXML
+    private ComboBox<String> updateCourseComboBox;
 
     @FXML
     private Label updateCourseIdLabel;
 
-    @FXML 
+    @FXML
     private Label updateCourseNameLabel;
 
     @FXML
@@ -92,16 +94,16 @@ public class AdminDashboardController implements Initializable {
     private Label updateCourseCurrentStudentLabel;
 
     @FXML
-    private  Label updateCourseTeacherIdLabel;
+    private Label updateCourseTeacherIdLabel;
 
     @FXML
-    private ComboBox<String> updateCourseTeacherIdComboBox ;
+    private ComboBox<String> updateCourseTeacherIdComboBox;
 
     @FXML
     private Label myCreatLabel1;
 
     /*
-     * Remove 
+     * Remove
      */
 
     @FXML
@@ -240,8 +242,8 @@ public class AdminDashboardController implements Initializable {
         adminReportPane.setVisible(false);
     }
 
-    @FXML 
-    private void navigateToReport(ActionEvent actionEvent){
+    @FXML
+    private void navigateToReport(ActionEvent actionEvent) {
         adminDashboardHomePane.setVisible(false);
         adminRegistrationPane.setVisible(false);
         adminCourseManagementPage.setVisible(false);
@@ -259,6 +261,27 @@ public class AdminDashboardController implements Initializable {
         Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         window.setScene(LoginUIScene);
         window.show();
+    }
+
+    @FXML
+    private void handleDashboardReload(ActionEvent actionEvent) throws SQLException, IOException {
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.close();
+
+        stage.setOnCloseRequest(event -> {
+            event.consume();
+            logout(stage);
+        });
+
+        Scene Scene = new Scene(FXMLLoader.load(getClass().getResource("/gui/AdminDashboard.fxml")));
+        Stage newstage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        newstage.setScene(Scene);
+        newstage.show();
+        newstage.setFullScreen(false);
+        newstage.setOnCloseRequest(event -> {
+            event.consume();
+            logout(newstage);
+        });
     }
 
     /*******************************************
@@ -300,13 +323,12 @@ public class AdminDashboardController implements Initializable {
         }
     }
 
-
     /*
      * Update courses
      */
 
     @FXML
-    private void handleUpdateCourseButton(ActionEvent actionEvent) throws SQLException{
+    private void handleUpdateCourseButton(ActionEvent actionEvent) throws SQLException {
         courseId = Integer.parseInt(updateCourseIdLabel.getText());
         course = new CourseDatabaseOperationImplementation().getCourse(courseId);
         Integer newCourseCredit = Integer.parseInt(updateCourseCreditField.getText());
@@ -320,24 +342,23 @@ public class AdminDashboardController implements Initializable {
         boolean teacheridstatus;
 
         creditstatus = courseOp.updateCourseCredit(courseId, newCourseCredit);
-        if (creditstatus) 
-                this.course.setCourseCredit(newCourseCredit);
-        
+        if (creditstatus)
+            this.course.setCourseCredit(newCourseCredit);
+
         maxstudentstatus = courseOp.updateCourseMaxStudent(courseId, newMaxStudent);
-        if (maxstudentstatus) 
-                this.course.setMaxStudent(newMaxStudent);
+        if (maxstudentstatus)
+            this.course.setMaxStudent(newMaxStudent);
 
         teacheridstatus = courseOp.updateCourseTeacherId(courseId, newTeacherId);
-        if (teacheridstatus) 
-                this.course.setCourseTeacherId(newTeacherId);
+        if (teacheridstatus)
+            this.course.setCourseTeacherId(newTeacherId);
 
         if (creditstatus && maxstudentstatus && teacheridstatus) {
             myCreatLabel1.setText("Course is updated!");
         } else {
             myCreatLabel1.setText("Failed to update course!");
         }
-        
-        
+
     }
 
     @FXML
@@ -364,6 +385,7 @@ public class AdminDashboardController implements Initializable {
         updateCourseMaxStudentField.clear();
         updateCourseTeacherIdComboBox.getSelectionModel().clearSelection();
     }
+
     /*
      * Remove courses
      */
@@ -420,8 +442,6 @@ public class AdminDashboardController implements Initializable {
             myRemoveLabel.setText("Failed to remove " + pickedCourse.getCourseName() + "!");
         }
     }
-
-
 
     /*
      * Register courses for student
@@ -499,86 +519,85 @@ public class AdminDashboardController implements Initializable {
         removeCourseStatusLabel.setText(null); // clearing other fields
 
         Course pickedCourse = registrationTableView.getSelectionModel().getSelectedItem();
-        if (pickedCourse == null){
+        if (pickedCourse == null) {
             registrationStatusLabel.setText("Select a course first!");
             return;
         }
 
+        // System.out.println("Register for " + pickedCourse.toString());
 
-        //System.out.println("Register for " + pickedCourse.toString());
-
-        if(pickedCourse.getCurrentStudent() >= pickedCourse.getMaxStudent()){
+        if (pickedCourse.getCurrentStudent() >= pickedCourse.getMaxStudent()) {
             registrationStatusLabel.setText("Course is full!");
             return;
         }
 
         Registration registration = new Registration(registrationId, studentId, pickedCourse.getCourseId());
-        //System.out.println(registration.toString());
+        // System.out.println(registration.toString());
         RegistrationDatabaseOperationImplementation regOp = new RegistrationDatabaseOperationImplementation();
         boolean exists = regOp.exists(pickedCourse, student);
 
-        if (exists){
+        if (exists) {
             registrationStatusLabel.setText("Already registered for " + pickedCourse.getCourseName());
             return;
         }
 
         boolean regStatus = regOp.insertRegistrationEntry(registration);
-        if (regStatus){
+        if (regStatus) {
             registrationId++; // increment registrationId to be primary key for the next entry
             CourseDatabaseOperationImplementation coOp = new CourseDatabaseOperationImplementation();
             Integer currentStudent = pickedCourse.getCurrentStudent();
             Integer pickedCourseId = pickedCourse.getCourseId();
-            boolean updateStatus = coOp.updateCourseCurrentStudent(pickedCourseId, currentStudent+1);
-            if (updateStatus){
-                pickedCourse.setCurrentStudent(currentStudent+1);
-                //System.out.println("Current student updated successfully.");
-            } else{
-                //System.out.println("Current student updation error!");
+            boolean updateStatus = coOp.updateCourseCurrentStudent(pickedCourseId, currentStudent + 1);
+            if (updateStatus) {
+                pickedCourse.setCurrentStudent(currentStudent + 1);
+                // System.out.println("Current student updated successfully.");
+            } else {
+                // System.out.println("Current student updation error!");
             }
             registrationTableView.getColumns().clear();
             populateRegistrationTableView();
             registeredCoursesTableView.getColumns().clear();
             populateRegisteredCoursesTableView();
             registeredCourseList.add(pickedCourse);
-            //System.out.println(registration.toString() + " is done!");
+            // System.out.println(registration.toString() + " is done!");
             registrationStatusLabel.setText("Registration for " + pickedCourse.getCourseName() + " successful.");
-        } else{
+        } else {
             registrationStatusLabel.setText("Failed to add " + pickedCourse.getCourseName() + "!");
         }
 
     }
 
     @FXML
-    private void handleCourseRemoval(ActionEvent actionEvent) throws SQLException{
+    private void handleCourseRemoval(ActionEvent actionEvent) throws SQLException {
         registrationStatusLabel.setText(null); // clearing other fields
 
         Course pickedCourse = registeredCoursesTableView.getSelectionModel().getSelectedItem();
-        if (pickedCourse == null){
+        if (pickedCourse == null) {
             removeCourseStatusLabel.setText("Select a course first!");
             return;
         }
 
         RegistrationDatabaseOperationImplementation regOp = new RegistrationDatabaseOperationImplementation();
         boolean removeStatus = regOp.removeRegistration(pickedCourse, student);
-        if (removeStatus){
+        if (removeStatus) {
             CourseDatabaseOperationImplementation coOp = new CourseDatabaseOperationImplementation();
             Integer currentStudent = pickedCourse.getCurrentStudent();
             Integer pickedCourseId = pickedCourse.getCourseId();
-            boolean updateStatus = coOp.updateCourseCurrentStudent(pickedCourseId, currentStudent-1);
-            if (updateStatus){
-                pickedCourse.setCurrentStudent(currentStudent-1);
-                //System.out.println("Current student updated successfully.");
-            } else{
-                //System.out.println("Current student updation error!");
+            boolean updateStatus = coOp.updateCourseCurrentStudent(pickedCourseId, currentStudent - 1);
+            if (updateStatus) {
+                pickedCourse.setCurrentStudent(currentStudent - 1);
+                // System.out.println("Current student updated successfully.");
+            } else {
+                // System.out.println("Current student updation error!");
             }
             registrationTableView.getColumns().clear();
             populateRegistrationTableView();
             registeredCoursesTableView.getColumns().clear();
             populateRegisteredCoursesTableView();
             registeredCourseList.remove(pickedCourse);
-            //System.out.println("Registration cancelled for " + pickedCourse.toString());
+            // System.out.println("Registration cancelled for " + pickedCourse.toString());
             removeCourseStatusLabel.setText("Removed " + pickedCourse.getCourseName() + " successfully.");
-        } else{
+        } else {
             removeCourseStatusLabel.setText("Failed to remove " + pickedCourse.getCourseName() + "!");
         }
     }
@@ -594,7 +613,7 @@ public class AdminDashboardController implements Initializable {
     }
 
     /*
-     * Report 
+     * Report
      */
 
     private void fetchReportInformationFromDatabase() throws SQLException {
@@ -603,7 +622,7 @@ public class AdminDashboardController implements Initializable {
         reportViewRegistedStudentComboBox.setItems(getCourseList());
     }
 
-    private void populateAdminReportTableView(){
+    private void populateAdminReportTableView() {
         TableColumn<Course, String> courseId = new TableColumn<>("ID");
         courseId.setCellValueFactory(new PropertyValueFactory("courseId"));
         // Course Title Column
@@ -627,7 +646,7 @@ public class AdminDashboardController implements Initializable {
                 courseTeacherId);
     }
 
-    private void populateAdminReportFullTableView() throws SQLException{
+    private void populateAdminReportFullTableView() throws SQLException {
         TableColumn<Course, String> courseId = new TableColumn<>("ID");
         courseId.setCellValueFactory(new PropertyValueFactory("courseId"));
         // Course Title Column
@@ -652,12 +671,12 @@ public class AdminDashboardController implements Initializable {
     }
 
     @FXML
-    private void pickupCourseComboBoxAction(ActionEvent actionEvent) throws SQLException{
+    private void pickupCourseComboBoxAction(ActionEvent actionEvent) throws SQLException {
         adminReportStudentRegistedView.getColumns().clear();
         populateadminReportStudentRegistedView();
     }
 
-    private void populateadminReportStudentRegistedView()throws SQLException{
+    private void populateadminReportStudentRegistedView() throws SQLException {
         TableColumn<Student, String> studentId = new TableColumn<>("ID");
         studentId.setCellValueFactory(new PropertyValueFactory("studentId"));
         // Course Title Column
@@ -677,7 +696,8 @@ public class AdminDashboardController implements Initializable {
         studentClass.setCellValueFactory(new PropertyValueFactory("studentClass"));
 
         adminReportStudentRegistedView.setItems(getStudentRegisted());
-        adminReportStudentRegistedView.getColumns().addAll(studentId, studentName, studentEmail, studentPhone, studentAddress, studentClass);
+        adminReportStudentRegistedView.getColumns().addAll(studentId, studentName, studentEmail, studentPhone,
+                studentAddress, studentClass);
     }
 
     private ObservableList<String> getStudentList() throws SQLException {
@@ -694,7 +714,7 @@ public class AdminDashboardController implements Initializable {
         return teacherList;
     }
 
-    private ObservableList<String> getRegistrationTeacherList(Integer courseId) throws SQLException{
+    private ObservableList<String> getRegistrationTeacherList(Integer courseId) throws SQLException {
         ObservableList<String> teacherList = FXCollections.observableArrayList();
         RegistrationDatabaseOperationImplementationTeacher courseOp = new RegistrationDatabaseOperationImplementationTeacher();
         teacherList = courseOp.getAllTeacherId(courseId);
@@ -715,12 +735,25 @@ public class AdminDashboardController implements Initializable {
         return courseList;
     }
 
-    private ObservableList<Student> getStudentRegisted()throws SQLException{
+    private ObservableList<Student> getStudentRegisted() throws SQLException {
         int courseid = Integer.parseInt(reportViewRegistedStudentComboBox.getValue());
         ObservableList<Student> studentList = FXCollections.observableArrayList();
         RegistrationDatabaseOperationImplementation regOp = new RegistrationDatabaseOperationImplementation();
         studentList = regOp.getAllRegistereStudents(courseid);
         return studentList;
+    }
+
+    public void logout(Stage stage) {
+
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Logout");
+        alert.setHeaderText("Are you sure you want to logout?");
+        alert.setContentText("Do you want to save before exiting?");
+
+        if (alert.showAndWait().get().getText().equals("OK")) {
+            System.out.println("Logout button clicked");
+            stage.close();
+        }
     }
     
 }
