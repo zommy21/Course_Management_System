@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 
 import dboperations.CourseDatabaseOperationImplementation;
 import dboperations.RegistrationDatabaseOperationImplementation;
+import dboperations.RegistrationDatabaseOperationImplementationTeacher;
 import dboperations.StudentDatabaseOperationImplementation;
 import dboperations.TeacherDatabaseOperationImplementation;
 import javafx.collections.FXCollections;
@@ -348,7 +349,7 @@ public class AdminDashboardController implements Initializable {
         updateCourseMaxStudentField.setText(String.valueOf(course.getMaxStudent()));
         updateCourseCurrentStudentLabel.setText(String.valueOf(course.getCurrentStudent()));
         updateCourseTeacherIdLabel.setText(course.getCourseTeacherId());
-        updateCourseTeacherIdComboBox.setItems(getTeacherList());
+        updateCourseTeacherIdComboBox.setItems(getRegistrationTeacherList(courseid));
     }
 
     @FXML
@@ -622,6 +623,7 @@ public class AdminDashboardController implements Initializable {
 
     @FXML
     private void pickupCourseComboBoxAction(ActionEvent actionEvent) throws SQLException{
+        adminReportStudentRegistedView.getColumns().clear();
         populateadminReportStudentRegistedView();
     }
 
@@ -659,6 +661,13 @@ public class AdminDashboardController implements Initializable {
         ObservableList<String> teacherList = FXCollections.observableArrayList();
         TeacherDatabaseOperation courseOp = new TeacherDatabaseOperationImplementation();
         teacherList = courseOp.getAllTeacherId();
+        return teacherList;
+    }
+
+    private ObservableList<String> getRegistrationTeacherList(Integer courseId) throws SQLException{
+        ObservableList<String> teacherList = FXCollections.observableArrayList();
+        RegistrationDatabaseOperationImplementationTeacher courseOp = new RegistrationDatabaseOperationImplementationTeacher();
+        teacherList = courseOp.getAllTeacherId(courseId);
         return teacherList;
     }
 

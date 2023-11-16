@@ -14,4 +14,5 @@ public interface RegistrationDatabaseOperationTeacher {
     boolean removeRegistration(Course course, Teacher teacher);
     ObservableList <Course> getAllRegisteredCourses(Teacher teacher) throws SQLException;
     ObservableList <Teacher> getAllRegisteredTeachers(Course course) throws SQLException;
+    ObservableList<String> getAllTeacherId(Integer courseId) throws SQLException ;
 }

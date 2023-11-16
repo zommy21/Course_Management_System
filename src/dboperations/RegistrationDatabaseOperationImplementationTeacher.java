@@ -126,4 +126,19 @@ public class RegistrationDatabaseOperationImplementationTeacher implements Regis
         }
         return teacherlist;
     }
+
+    @Override
+    public ObservableList<String> getAllTeacherId(Integer courseId) throws SQLException {
+        String query = String.format("SELECT teacher_id FROM registrationteacher WHERE course_id=%d", courseId);
+        Connection connection = DBConnection.getConnection();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(query);
+
+        ObservableList <String> teacherIdList = FXCollections.observableArrayList();
+        while(resultSet.next()){
+            String teacherId = resultSet.getString("teacher_id");
+            teacherIdList.add(teacherId);
+        }
+        return teacherIdList;
+    }
 }
