@@ -39,14 +39,14 @@ Login Page
 
 #### Teacher Information
 ![t1](https://imgur.com/OCnKzth.png)
-#### Research Registration
+#### Teacher Registration
 ![t2](https://imgur.com/B7o8j2O.png)
 
 ## Admin Dashboard
 
 #### Admin Registration for Student 
-![c1](https://imgur.com/WnvapOK.png)
+![c1](https://imgur.com/I1RrIcv.png)
 #### Admin Report
-![c2](https://imgur.com/WDBDk0G.png)
+![c2](https://imgur.com/cLm2oX9.png)
 ### Admin Course Management 
-![c3](https://imgur.com/a2eHIvg.png)
+![c3](https://imgur.com/Laat28V.png)
