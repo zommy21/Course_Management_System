@@ -139,6 +139,21 @@ public class CourseDatabaseOperationImplementation implements CourseDatabaseOper
     }
 
     @Override
+    public boolean updateCourseCurrentStudent(Integer courseId, Integer currentStudent) throws SQLException {
+        Connection connection = DBConnection.getConnection();
+
+        String query = String.format("UPDATE course SET current_sutdent=%d WHERE id=%s", currentStudent, courseId);
+
+        Statement statement = connection.createStatement();
+        int rowsAffected = statement.executeUpdate(query);
+        if(rowsAffected > 0)
+            return true;
+        return false;
+    }
+
+    
+
+    @Override
     public ObservableList<Course> getFullCourses() throws SQLException {
         Connection connection = DBConnection.getConnection();
 

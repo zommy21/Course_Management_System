@@ -72,11 +72,11 @@ create table course (
 );
 
 insert into course values
-	("1", "Introduction to Software Engineering", 3, 30,2, "KMH"),
-	("2", "Data Structures and Algorithms", 4, 2,2, "AR"),
-	("3", "Operating Systems", 3, 30,2, "AR"),
-	("4", "Computer Architecture", 3, 30,2, "RAJ"),
-	("5", "Database Systems", 3, 30,2, "KIA");
+	("1", "Introduction to Software Engineering", 3, 10,0, "KMH"),
+	("2", "Data Structures and Algorithms", 4, 5,0, "AR"),
+	("3", "Operating Systems", 3, 8,0, "AR"),
+	("4", "Computer Architecture", 3, 5,0, "RAJ"),
+	("5", "Database Systems", 3, 10,0, "KIA");
 
 create table registration (
 	id int(10) primary key auto_increment,

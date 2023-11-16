@@ -92,6 +92,12 @@ public class LoginUIController implements Initializable {
 
             if (userops.insertUser(user)){
                 signupStatusLabel.setText("Signed Up successfully!");
+                signupNameField.clear();
+                signupEmailField.clear();
+                signupUsernameField.clear();
+                signupPasswordField.clear();
+                signupUserTypeComboBox.getSelectionModel().selectLast();
+
             }
             else{
                 signupStatusLabel.setText("Sign Up failed!");

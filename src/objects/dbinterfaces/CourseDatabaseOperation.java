@@ -14,5 +14,6 @@ public interface CourseDatabaseOperation {
     boolean updateCourseCredit(Integer courseId, Integer credit) throws SQLException;
     boolean updateCourseMaxStudent(Integer courseId, Integer maxStudent) throws SQLException;
     boolean updateCourseTeacherId(Integer courseId, String teacherId) throws SQLException;
+    boolean updateCourseCurrentStudent(Integer courseId, Integer currentStudent) throws SQLException;
     ObservableList <Course> getFullCourses() throws SQLException;
 }

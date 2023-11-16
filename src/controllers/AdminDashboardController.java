@@ -228,6 +228,7 @@ public class AdminDashboardController implements Initializable {
         removeCourseStatusLabel.setText(null);
         adminRegistrationPane.setVisible(true);
         adminReportPane.setVisible(false);
+        adminCourseManagementPage.setVisible(false);
     }
 
     @FXML
@@ -498,57 +499,86 @@ public class AdminDashboardController implements Initializable {
         removeCourseStatusLabel.setText(null); // clearing other fields
 
         Course pickedCourse = registrationTableView.getSelectionModel().getSelectedItem();
-        if (pickedCourse == null) {
+        if (pickedCourse == null){
             registrationStatusLabel.setText("Select a course first!");
             return;
         }
 
-        // System.out.println("Register for " + pickedCourse.toString());
 
-        if (pickedCourse.getCurrentStudent() >= pickedCourse.getMaxStudent()) {
+        //System.out.println("Register for " + pickedCourse.toString());
+
+        if(pickedCourse.getCurrentStudent() >= pickedCourse.getMaxStudent()){
             registrationStatusLabel.setText("Course is full!");
             return;
         }
 
         Registration registration = new Registration(registrationId, studentId, pickedCourse.getCourseId());
-        // System.out.println(registration.toString());
+        //System.out.println(registration.toString());
         RegistrationDatabaseOperationImplementation regOp = new RegistrationDatabaseOperationImplementation();
         boolean exists = regOp.exists(pickedCourse, student);
 
-        if (exists) {
+        if (exists){
             registrationStatusLabel.setText("Already registered for " + pickedCourse.getCourseName());
             return;
         }
 
         boolean regStatus = regOp.insertRegistrationEntry(registration);
-        if (regStatus) {
+        if (regStatus){
             registrationId++; // increment registrationId to be primary key for the next entry
+            CourseDatabaseOperationImplementation coOp = new CourseDatabaseOperationImplementation();
+            Integer currentStudent = pickedCourse.getCurrentStudent();
+            Integer pickedCourseId = pickedCourse.getCourseId();
+            boolean updateStatus = coOp.updateCourseCurrentStudent(pickedCourseId, currentStudent+1);
+            if (updateStatus){
+                pickedCourse.setCurrentStudent(currentStudent+1);
+                //System.out.println("Current student updated successfully.");
+            } else{
+                //System.out.println("Current student updation error!");
+            }
+            registrationTableView.getColumns().clear();
+            populateRegistrationTableView();
+            registeredCoursesTableView.getColumns().clear();
+            populateRegisteredCoursesTableView();
             registeredCourseList.add(pickedCourse);
-            // System.out.println(registration.toString() + " is done!");
+            //System.out.println(registration.toString() + " is done!");
             registrationStatusLabel.setText("Registration for " + pickedCourse.getCourseName() + " successful.");
-        } else {
+        } else{
             registrationStatusLabel.setText("Failed to add " + pickedCourse.getCourseName() + "!");
         }
 
     }
 
     @FXML
-    private void handleCourseRemoval(ActionEvent actionEvent) {
+    private void handleCourseRemoval(ActionEvent actionEvent) throws SQLException{
         registrationStatusLabel.setText(null); // clearing other fields
 
         Course pickedCourse = registeredCoursesTableView.getSelectionModel().getSelectedItem();
-        if (pickedCourse == null) {
+        if (pickedCourse == null){
             removeCourseStatusLabel.setText("Select a course first!");
             return;
         }
 
         RegistrationDatabaseOperationImplementation regOp = new RegistrationDatabaseOperationImplementation();
         boolean removeStatus = regOp.removeRegistration(pickedCourse, student);
-        if (removeStatus) {
+        if (removeStatus){
+            CourseDatabaseOperationImplementation coOp = new CourseDatabaseOperationImplementation();
+            Integer currentStudent = pickedCourse.getCurrentStudent();
+            Integer pickedCourseId = pickedCourse.getCourseId();
+            boolean updateStatus = coOp.updateCourseCurrentStudent(pickedCourseId, currentStudent-1);
+            if (updateStatus){
+                pickedCourse.setCurrentStudent(currentStudent-1);
+                //System.out.println("Current student updated successfully.");
+            } else{
+                //System.out.println("Current student updation error!");
+            }
+            registrationTableView.getColumns().clear();
+            populateRegistrationTableView();
+            registeredCoursesTableView.getColumns().clear();
+            populateRegisteredCoursesTableView();
             registeredCourseList.remove(pickedCourse);
-            // System.out.println("Registration cancelled for " + pickedCourse.toString());
+            //System.out.println("Registration cancelled for " + pickedCourse.toString());
             removeCourseStatusLabel.setText("Removed " + pickedCourse.getCourseName() + " successfully.");
-        } else {
+        } else{
             removeCourseStatusLabel.setText("Failed to remove " + pickedCourse.getCourseName() + "!");
         }
     }
