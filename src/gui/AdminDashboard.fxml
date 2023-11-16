@@ -111,6 +111,63 @@
             </Button>
          </children>
       </HBox>
+      <AnchorPane fx:id="adminReportPane" layoutY="87.0" prefHeight="763.0" prefWidth="1200.0">
+         <children>
+            <TabPane layoutX="-2.0" prefHeight="763.0" prefWidth="1208.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="View courses">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Label layoutX="61.0" layoutY="63.0" text="All Courses">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <TableView fx:id="adminReportTableView" layoutX="61.0" layoutY="99.0" prefHeight="298.0" prefWidth="512.0" />
+                              <Label layoutX="645.0" layoutY="63.0" prefHeight="25.0" prefWidth="108.0" text="Courses full">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <TableView fx:id="adminReportFullTableView" layoutX="645.0" layoutY="99.0" prefHeight="297.0" prefWidth="512.0" />
+                              <VBox layoutX="228.0" layoutY="513.0" prefHeight="169.0" prefWidth="690.0" spacing="4.0">
+                                 <children>
+                                    <Label text="Notes:">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="TOP_LEFT" prefHeight="25.0" prefWidth="696.0" text=" You can sort everycolumns buy click on the triangle in the column name . ">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="View Student registed in course">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Label layoutX="354.0" layoutY="64.0" text="Select Course ">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="reportViewRegistedStudentComboBox" layoutX="477.0" layoutY="59.0" onAction="#pickupCourseComboBoxAction" prefHeight="35.0" prefWidth="160.0" />
+                              <TableView fx:id="adminReportStudentRegistedView" layoutX="237.0" layoutY="149.0" prefHeight="291.0" prefWidth="641.0" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
+         </children>
+      </AnchorPane>
       <AnchorPane fx:id="adminCourseManagementPage" layoutY="87.0" prefHeight="763.0" prefWidth="1200.0">
          <children>
             <TabPane prefHeight="763.0" prefWidth="1200.0" tabClosingPolicy="UNAVAILABLE">
@@ -422,67 +479,11 @@
                               <TableView fx:id="createCourseTableView" layoutX="203.0" layoutY="120.0" prefHeight="320.0" prefWidth="835.0" />
                               <Label fx:id="myRemoveLabel" alignment="TOP_LEFT" layoutX="303.0" layoutY="477.0" prefHeight="40.0" prefWidth="305.0" text="Status for removed course" wrapText="true" />
                               <Button layoutX="747.0" layoutY="467.0" mnemonicParsing="false" onAction="#handleCourseRemove" prefHeight="30.0" prefWidth="170.0" stylesheets="@../styles/navigation_button.css" text="Remove" />
+                              <Button layoutX="379.0" layoutY="467.0" mnemonicParsing="false" onAction="#handleCourseReload" prefHeight="30.0" prefWidth="170.0" stylesheets="@../styles/navigation_button.css" text="Reload" />
                            </children></AnchorPane>
                      </content>
                   </Tab>
                </tabs>
-            </TabPane>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="adminReportPane" layoutY="87.0" prefHeight="763.0" prefWidth="1200.0">
-         <children>
-            <TabPane layoutX="-2.0" prefHeight="763.0" prefWidth="1208.0" tabClosingPolicy="UNAVAILABLE">
-              <tabs>
-                <Tab text="View courses">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <Label layoutX="61.0" layoutY="63.0" text="All Courses">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Label>
-                              <TableView fx:id="adminReportTableView" layoutX="61.0" layoutY="99.0" prefHeight="298.0" prefWidth="512.0" />
-                              <Label layoutX="645.0" layoutY="63.0" prefHeight="25.0" prefWidth="108.0" text="Courses full">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Label>
-                              <TableView fx:id="adminReportFullTableView" layoutX="645.0" layoutY="99.0" prefHeight="297.0" prefWidth="512.0" />
-                              <VBox layoutX="228.0" layoutY="513.0" prefHeight="169.0" prefWidth="690.0" spacing="4.0">
-                                 <children>
-                                    <Label text="Notes:">
-                                       <font>
-                                          <Font name="System Bold" size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <Label alignment="TOP_LEFT" prefHeight="25.0" prefWidth="696.0" text=" You can sort everycolumns buy click on the triangle in the column name . ">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </AnchorPane>
-                  </content>
-                </Tab>
-                <Tab text="View Student registed in course">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <Label layoutX="354.0" layoutY="64.0" text="Select Course ">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Label>
-                              <ComboBox fx:id="reportViewRegistedStudentComboBox" layoutX="477.0" layoutY="59.0" onAction="#pickupCourseComboBoxAction" prefHeight="35.0" prefWidth="160.0" />
-                              <TableView fx:id="adminReportStudentRegistedView" layoutX="237.0" layoutY="149.0" prefHeight="291.0" prefWidth="641.0" />
-                           </children>
-                        </AnchorPane>
-                  </content>
-                </Tab>
-              </tabs>
             </TabPane>
          </children>
       </AnchorPane>

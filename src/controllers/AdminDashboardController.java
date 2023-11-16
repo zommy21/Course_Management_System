@@ -390,6 +390,13 @@ public class AdminDashboardController implements Initializable {
     }
 
     @FXML
+    private void handleCourseReload(ActionEvent actionEvent) throws SQLException {
+        createCourseTableView.getColumns().clear();
+        fetchCourseInformationFromDatabase();
+        populateCourseTableView();
+    }
+
+    @FXML
     private void handleCourseRemove(ActionEvent actionEvent) throws SQLException {
         myRemoveLabel.setText(null); // clearing other fields
 
