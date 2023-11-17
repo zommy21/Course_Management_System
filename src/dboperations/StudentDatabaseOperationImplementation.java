@@ -88,8 +88,9 @@ public class StudentDatabaseOperationImplementation implements StudentDatabaseOp
 
         ResultSet resultSet = statement.executeQuery(query);
 
-        if (!resultSet.next())
+        if(!resultSet.next()){
             return null;
+        }
 
         String StudentName = resultSet.getString("name");
         String StudentAddress = resultSet.getString("address");

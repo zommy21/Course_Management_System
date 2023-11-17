@@ -26,7 +26,7 @@ public class UserDatabaseOperationImplementation implements UserDatabaseOperatio
         * inserts into corresponding table
         * Currently, the tables are: Student, Teacher, Chairman
         * */
-        String queryForUserTable = String.format("INSERT INTO %s VALUES('%s', '%s', '%s', '', '', '')",
+        String queryForUserTable = String.format("INSERT INTO %s VALUES('%s', '%s', '', '', '%s', '')",
                 user.getType(),
                 user.getUsername(),
                 user.getName(),
