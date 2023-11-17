@@ -602,6 +602,7 @@ public class AdminDashboardController implements Initializable {
         registeredCourseList = regOp.getAllRegisteredCourses(student);
 
         populateRegistrationTableView();
+        populateRegisteredCoursesTableView();
     }
 
     /*
