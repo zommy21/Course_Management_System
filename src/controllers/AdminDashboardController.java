@@ -324,10 +324,11 @@ public class AdminDashboardController implements Initializable {
         //System.out.println(registration.toString());
         RegistrationDatabaseOperationImplementationTeacher regOp = new RegistrationDatabaseOperationImplementationTeacher();
         TeacherDatabaseOperationImplementation teacherOp = new TeacherDatabaseOperationImplementation();
-        int registrationTeacherId = regOp.getLastPrimaryKey();
+        int registrationTeacherId = regOp.getLastPrimaryKey() + 1;
+        System.out.println(registrationTeacherId);
         Teacher teacher = teacherOp.getTeacher(courseTeacherId);
         ObservableList<Course> registeredTeacherCourseList = regOp.getAllRegisteredCourses(teacher);
-        RegistrationTeacher registrationTeacher = new RegistrationTeacher(registrationId, courseTeacherId, courseId);
+        RegistrationTeacher registrationTeacher = new RegistrationTeacher(registrationTeacherId, courseTeacherId, courseId);
 
         boolean regStatus = regOp.insertRegistrationEntry(registrationTeacher);
         if (regStatus){
@@ -438,13 +439,18 @@ public class AdminDashboardController implements Initializable {
 
     @FXML
     private void handleCourseRemove(ActionEvent actionEvent) throws SQLException {
+
         myRemoveLabel.setText(null); // clearing other fields
 
         Course pickedCourse = createCourseTableView.getSelectionModel().getSelectedItem();
+
         if (pickedCourse == null) {
             myRemoveLabel.setText("Select a course first!");
             return;
         }
+
+        boolean removeAllTeacherStatus = new RegistrationDatabaseOperationImplementationTeacher().removeAllTeacher(pickedCourse);
+
 
         CourseDatabaseOperation regOp = new CourseDatabaseOperationImplementation();
         RegistrationDatabaseOperationImplementation op = new RegistrationDatabaseOperationImplementation();

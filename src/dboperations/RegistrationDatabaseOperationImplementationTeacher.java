@@ -78,6 +78,20 @@ public class RegistrationDatabaseOperationImplementationTeacher implements Regis
     }
 
     @Override
+    public boolean removeAllTeacher(Course course) {
+        String deleteQuery = String.format("DELETE FROM registrationteacher WHERE course_id=%d", course.getCourseId());
+        Connection connection = DBConnection.getConnection();
+        try{
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(deleteQuery);
+            return true;
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
     public ObservableList<Course> getAllRegisteredCourses(Teacher teacher) throws SQLException {
         String getQuery = String.format("SELECT course.id, course.name, course.name, course.credit,course.max_student,course.current_sutdent,course.teacher_id\n" +
                                         "FROM course, registrationteacher\n" +

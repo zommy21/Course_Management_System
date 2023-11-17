@@ -12,6 +12,7 @@ public interface RegistrationDatabaseOperationTeacher {
     boolean exists(Course course, Teacher teacher) throws SQLException;
     int getLastPrimaryKey() throws SQLException;
     boolean removeRegistration(Course course, Teacher teacher);
+    public boolean removeAllTeacher(Course course);
     ObservableList <Course> getAllRegisteredCourses(Teacher teacher) throws SQLException;
     ObservableList <Teacher> getAllRegisteredTeachers(Course course) throws SQLException;
     ObservableList<String> getAllTeacherId(Integer courseId) throws SQLException ;
