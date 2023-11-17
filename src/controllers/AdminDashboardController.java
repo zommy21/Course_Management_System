@@ -40,6 +40,7 @@ import users.dbinterfaces.StudentDatabaseOperation;
 import users.dbinterfaces.TeacherDatabaseOperation;
 import javafx.scene.Node;
 import objects.Registration;
+import objects.RegistrationTeacher;
 
 public class AdminDashboardController implements Initializable {
 
@@ -126,7 +127,6 @@ public class AdminDashboardController implements Initializable {
     private int registrationId;
 
     private String studentId;
-
     @FXML
     private AnchorPane adminRegistrationPane;
 
@@ -207,7 +207,6 @@ public class AdminDashboardController implements Initializable {
         myCreatLabel.setText(null);
         myCreatLabel1.setText(null);
         updateCourseComboBox.setItems(getCourseList());
-        updateCourseComboBox.getSelectionModel().selectLast();
         updateCourseIdLabel.setText(null);
         updateCourseNameLabel.setText(null);
         updateCourseCurrentStudentLabel.setText(null);
@@ -315,11 +314,28 @@ public class AdminDashboardController implements Initializable {
 
         Course course = new Course(courseId, courseName, courseCredit, maxStudent, currentStudent, courseTeacherId);
         CourseDatabaseOperation courseOp = new CourseDatabaseOperationImplementation();
+
         boolean courseStatus = courseOp.addCourse(course);
         if (courseStatus) {
             myCreatLabel.setText("Course is added!");
         } else {
             myCreatLabel.setText("Failed to add course!");
+        }
+        //System.out.println(registration.toString());
+        RegistrationDatabaseOperationImplementationTeacher regOp = new RegistrationDatabaseOperationImplementationTeacher();
+        TeacherDatabaseOperationImplementation teacherOp = new TeacherDatabaseOperationImplementation();
+        int registrationTeacherId = regOp.getLastPrimaryKey();
+        Teacher teacher = teacherOp.getTeacher(courseTeacherId);
+        ObservableList<Course> registeredTeacherCourseList = regOp.getAllRegisteredCourses(teacher);
+        RegistrationTeacher registrationTeacher = new RegistrationTeacher(registrationId, courseTeacherId, courseId);
+
+        boolean regStatus = regOp.insertRegistrationEntry(registrationTeacher);
+        if (regStatus){
+            registrationTeacherId++; // increment registrationId to be primary key for the next entry
+            registeredTeacherCourseList.add(course);
+            System.out.println(registrationTeacher.toString() + " is done!");
+        }else{
+            System.out.println("Can't create Teacher Registration");
         }
     }
 

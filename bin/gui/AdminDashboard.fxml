@@ -104,12 +104,12 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button layoutX="358.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleDashboardSignout" prefHeight="30.0" prefWidth="102.0" stylesheets="@../styles/navigation_button.css" text="Sign Out" textFill="#0d0000">
+            <Button layoutX="358.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleDashboardReload" prefHeight="30.0" prefWidth="102.0" stylesheets="@../styles/navigation_button.css" text="Reload" textFill="#0d0000">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleDashboardReload" prefHeight="30.0" prefWidth="135.0" stylesheets="@../styles/navigation_button.css" text="Reload" textFill="#0d0000">
+            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleDashboardSignout" prefHeight="30.0" prefWidth="135.0" stylesheets="@../styles/navigation_button.css" text="Sign out" textFill="#0d0000">
                <font>
                   <Font size="14.0" />
                </font>
@@ -293,6 +293,20 @@
                                     </Label>
                                  </children>
                               </GridPane>
+                              <VBox layoutX="344.0" layoutY="491.0" prefHeight="169.0" prefWidth="690.0" spacing="4.0">
+                                 <children>
+                                    <Label text="Notes:">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="TOP_LEFT" prefHeight="25.0" prefWidth="696.0" text="After Create a new Course you must push the button Reload for updating new course.">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
                            </children>
                         </AnchorPane>
                      </content>
