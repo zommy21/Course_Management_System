@@ -449,19 +449,6 @@ public class AdminDashboardController implements Initializable {
 
     private void fetchRegistrationInformationFromDatabase() throws SQLException {
         pickupStudentComboBox.setItems(getStudentList());
-        pickupStudentComboBox.getSelectionModel().selectLast();
-        String studentid = pickupStudentComboBox.getValue();
-
-        RegistrationDatabaseOperationImplementation regOp = new RegistrationDatabaseOperationImplementation();
-        registrationId = regOp.getLastPrimaryKey();
-        System.out.println(registrationId);
-        registrationId = registrationId + 1; // next primary key
-
-        student = new StudentDatabaseOperationImplementation().getStudent(studentid);
-
-        registeredCourseList = regOp.getAllRegisteredCourses(student);
-
-        populateRegistrationTableView();
         // populateResearchTeamInformation();
 
     }
@@ -605,11 +592,16 @@ public class AdminDashboardController implements Initializable {
     @FXML
     private void pickupStudentComboBoxAction(ActionEvent actionEvent) throws SQLException {
         String studentid = pickupStudentComboBox.getValue();
-        studentId = studentid;
+        RegistrationDatabaseOperationImplementation regOp = new RegistrationDatabaseOperationImplementation();
+        registrationId = regOp.getLastPrimaryKey();
+        System.out.println(registrationId);
+        registrationId = registrationId + 1; // next primary key
+
         student = new StudentDatabaseOperationImplementation().getStudent(studentid);
 
-        registeredCourseList = new RegistrationDatabaseOperationImplementation().getAllRegisteredCourses(student);
-        populateRegisteredCoursesTableView();
+        registeredCourseList = regOp.getAllRegisteredCourses(student);
+
+        populateRegistrationTableView();
     }
 
     /*
