@@ -31,7 +31,7 @@ public class TeacherDatabaseOperationImplementation implements TeacherDatabaseOp
 
     @Override
     public boolean updateTeacherPhone(String teacherId, String phone) {
-        String queryForPhoneUpdate = String.format("UPDATE teacher SET phone='%s' WHERE id='%s'", teacherId);
+        String queryForPhoneUpdate = String.format("UPDATE teacher SET phone='%s' WHERE id='%s'", phone,teacherId);
         Connection connection = DBConnection.getConnection();
         try {
             Statement statement = connection.createStatement();
